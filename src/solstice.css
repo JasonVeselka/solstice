@@ -1,0 +1,54 @@
+.solstice-cal-month{
+  display: table;
+  margin: 2px auto;
+  border-collapse: collapse;
+}
+.solstice-columns{
+  display: table-row;
+  border-bottom: 1px solid black;
+}
+
+.solstice-week-day{
+  display: table-cell;
+}
+
+.solstice-day{
+  display: table-cell;
+  border-spacing: 3px;
+  width: 20px;
+}
+.solstice-day.solstice-selected, .solstice-day:hover{
+  background-color: blue;
+  color: white;
+}
+
+.solstice-week{
+  display: table-row;
+}
+
+.solstice-cal{
+  text-align: center;
+  display: inline-block;
+}
+
+.solstice-ctrls{
+  font-weight: bold;
+}
+
+.solstice-ctrls span{
+  margin-right: 5px;
+}
+
+.solstice-hour, .solstice-minute, .solstice-seconds{
+  width: 30px;
+  text-align: middle;
+  margin: auto 5px;
+  padding: 5px;
+}
+
+.solstice-timewrap{
+  padding: 10px;
+  border-top: 1px solid gray;
+}
+
+
