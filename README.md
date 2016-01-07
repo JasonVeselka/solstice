@@ -2,25 +2,38 @@
 
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
-## License
+## Installation
 
-(The MIT License)
+`npm install solstice`
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+## Usage
+```html
+<!DOCTYPE>
+<html>
+  <head>
+    <script type="text/javascript" src="../dist/solstice.js"></script>
+    <link rel="stylesheet" href="../dist/solstice.css" />
+  </head>
+  <body>
+    <div>
+      <div id="container-el"></div>
+      <button id="okay">Ok</button>
+    </div>
+    <div>
+      Date Selected:
+      <span id="aSpanOfDate"></span>
+    </div>
+    <script type="text/javascript">
+      if(Solstice){
+        var containerEl = document.getElementById('container-el'),
+          okayBtn = document.getElementById('okay'),
+          theSpan = document.getElementById('aSpanOfDate'),
+          sols = new Solstice(containerEl);
+        okayBtn.onclick = function(){
+          theSpan.innerText = sols.getDate();
+        };
+      }
+    </script>
+  </body>
+</html>
+```
