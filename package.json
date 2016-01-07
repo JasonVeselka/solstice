@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "gulp test",
-    "build": "gulp build"
+    "postinstall": "gulp build"
   },
   "repository": {
     "type": "git",
