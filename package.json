@@ -2,7 +2,7 @@
   "name": "solstice",
   "version": "0.0.1",
   "description": "Simple Date Time picker",
-  "main": "solstice.js",
+  "main": "dist/solstice.js",
   "private": true,
   "scripts": {
     "test": "gulp test",
@@ -18,8 +18,8 @@
     "calendar",
     "vanillaJS"
   ],
-  "author": "K2 Squad <lst-digitaltech.k2@nike.com>",
-  "license": "Closed Source",
+  "author": "Jason Veselka <jason.veselka@live.com",
+  "license": "MIT",
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.23",
