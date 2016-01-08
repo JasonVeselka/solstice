@@ -36,7 +36,7 @@ class Solstice {
       EDT: '-04:00',
       AKDT: '-08:00',
       HDT: '-09:00'
-    }; 
+    };
 
     this.selector = {
       calendarWrapper: 'solstice-cal',
@@ -87,7 +87,7 @@ class Solstice {
       date = new Date(date);
     } else if (!date){
       date = new Date();
-    } 
+    }
 
     if (isNaN(date.getTime())){
       date = new Date();
@@ -96,7 +96,7 @@ class Solstice {
     this.selectedDate = date;
     this._updateShownDate(date);
   }
-  
+
   // events
   on(eventName, callback){
     // add it to the events object
@@ -105,7 +105,7 @@ class Solstice {
     } else {
       if (!this._events[eventName]){
         this._events[eventName] = [];
-      } 
+      }
       this._events[eventName].push(callback);
     }
 
@@ -190,10 +190,10 @@ class Solstice {
 
     // get minutes
     let minute = this.containerEl.getElementsByClassName(this.selector.minute)[0].value;
-    
+
     // get seconds
     let second = this.containerEl.getElementsByClassName(this.selector.seconds)[0].value;
-    
+
     // get timezone offset
     let tzOffset = this.containerEl.getElementsByClassName(this.selector.tzDD)[0].value;
 
@@ -210,7 +210,7 @@ class Solstice {
     docFrag.appendChild(this._createCalendar(this.shownDate));
     // add clock element
     docFrag.appendChild(this._createClock());
-    
+
     if (this.containerEl){
       this.containerEl.innerHTML = '';
       this.containerEl.appendChild(docFrag);
@@ -239,22 +239,22 @@ class Solstice {
       prevYearCtrl.innerText = '<<';
       nextYearCtrl.innerText = '>>';
     }
-    
+
     let selectedDate = this._buildSelectedDateElement(shownDate);
 
     prevMonthCtrl.innerText = '<';
     nextMonthCtrl.innerText = '>';
-    
+
     if (this.showYearCtrls){
-      controls.appendChild(prevYearCtrl);  
+      controls.appendChild(prevYearCtrl);
     }
 
     controls.appendChild(prevMonthCtrl);
     controls.appendChild(selectedDate);
     controls.appendChild(nextMonthCtrl);
-    
+
     if (this.showYearCtrls){
-      controls.appendChild(nextYearCtrl);  
+      controls.appendChild(nextYearCtrl);
     }
 
     return controls;
@@ -287,14 +287,14 @@ class Solstice {
       if (week.length < 7){
        while (week.length < 7){
           week.push(0);
-        } 
+        }
       }
       month.push(week);
       i++;
     }
-    
+
     let monthEl = this._createElement('div', this.selector.monthWrapper);
-    
+
     for (let weekInt = 0; weekInt < month.length; weekInt++){
       let week = month[weekInt];
       let aWeek = this._createElement('div', this.selector.week);
@@ -303,7 +303,7 @@ class Solstice {
         let dayClasses = dayNumber === this.shownDay ? [this.selector.day, 'solstice-selected'] : this.selector.day;
         let aDay = this._createElement('span', dayClasses);
         if (dayNumber){
-          aDay.innerText = dayNumber;  
+          aDay.innerText = dayNumber;
         }
         aWeek.appendChild(aDay);
       }
@@ -329,7 +329,7 @@ class Solstice {
 
     month.innerText = ` ${this.monthWords[updateDate.getMonth()]} `;
     year.innerText = `${updateDate.getFullYear()} `;
-    
+
     el.appendChild(month);
     el.appendChild(year);
 
@@ -340,7 +340,7 @@ class Solstice {
     let frag = document.createDocumentFragment();
 
     let timewrapper = this._createElement('div', this.selector.timewrap);
-    
+
     // separator
     let separator = this._createElement('span', this.selector.separator);
     separator.innerText = this.timeSeparator;
@@ -394,7 +394,7 @@ class Solstice {
     timewrapper.appendChild(timeDDWrapper);
 
     frag.appendChild(timewrapper);
-    
+
     return frag;
   }
 
@@ -419,7 +419,7 @@ class Solstice {
   }
 
   _handleWeekClick(event){
-    
+
   }
 
   _handleDaySelected(event){
