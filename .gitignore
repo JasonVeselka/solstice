@@ -4,6 +4,7 @@ pids
 *.pid
 *.seed
 lib-cov
+lib
 coverage
 .grunt
 .lock-wscript

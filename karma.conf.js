@@ -1,7 +1,6 @@
 require('babel-core/register');
-
 const path = require('path');
-// Karma configuration
+const appConfig = require('./config');
 
 module.exports = function(config) {
   config.set({
@@ -23,11 +22,9 @@ module.exports = function(config) {
     ],
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      // add webpack as preprocessor
-      'test/*.test.js': ['webpack']
-    },
+    // available preprocessors:
+    //      https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: appConfig.karma.preprocessors,
 
     webpack: {
       module: {
@@ -74,7 +71,13 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec', 'junit', 'html'],
+    reporters: appConfig.karma.reporters,
+
+    // lcov or lcovonly are required for generating lcov.info files
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
+    },
 
     // web server port
     port: 9876,
@@ -86,16 +89,18 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    // enable / disable watching file and executing tests
+    // whenever any file changes
+    autoWatch: appConfig.karma.autoWatch,
 
     // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    // available browser launchers:
+    //  https://npmjs.org/browse/keyword/karma-launcher
+    browsers: appConfig.karma.browsers,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: appConfig.karma.singleRun
   });
 };
 

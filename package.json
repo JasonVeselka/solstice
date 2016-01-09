@@ -14,8 +14,8 @@
   "scripts": {
     "lint": "eslint src",
     "clean": "rimraf reports",
-    "test": "NODE_ENV=test ./node_modules/.bin/karma start",
-    "test-travis": "NODE_ENV=test ./node_modules/.bin/karma start --single-run",
+    "test-dev": "NODE_ENV=development ./node_modules/.bin/karma start karma.conf.js",
+    "test-full": "NODE_ENV=test ./node_modules/.bin/karma start karma.conf.js",
     "build": "./node_modules/.bin/babel --presets es2015,stage-0 -d dist/ src/",
     "coveralls": "npm run cover -s && coveralls < coverage/lcov.info",
     "postcoveralls": "rimraf coverage",
@@ -24,7 +24,7 @@
     "deploy": "git pull --rebase origin master && git push origin master",
     "prepublish": "npm run lint && npm run clean && npm run build && npm test",
     "postpublish": "git push origin master --follow-tags",
-    "watch": "node_modules/.bin/babel src -d lib --experimental -w"
+    "watch": "node_modules/.bin/babel src -d dist --experimental -w"
   },
   "keywords": [
     "date",
