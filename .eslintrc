@@ -8,6 +8,7 @@
     "no-unused-vars": 0,
     "no-undef": 0,
     "prefer-reflect": 0,
+    "prefer-template": 0,
     "space-before-blocks": 0,
     "space-before-function-paren": [2, "never"]
   },

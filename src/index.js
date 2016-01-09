@@ -418,9 +418,9 @@ export class Solstice {
     this.render();
   }
 
-  // _handleWeekClick(event){
+  _handleWeekClick(event){
 
-  // }
+  }
 
   _handleDaySelected(event){
     const target = event.target || event.toElement;
@@ -544,7 +544,7 @@ export class Solstice {
   }
 
   _addLeadingZero(aNumber){
-    aNumber = `aNumber < 10 ? '0', aNumber : aNumber`;
+    aNumber = aNumber < 10 ? '0' + aNumber : aNumber;
     return aNumber.toString();
   }
 }

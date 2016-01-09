@@ -1,5 +1,6 @@
-import {expect, sinon} from './sinon-chai';
-import Solstice from '../dist/index';
+import sinon from 'sinon/pkg/sinon';
+import {expect} from 'chai';
+import {Solstice} from '../dist/index';
 
 describe('Solstice', function() {
   let sandbox;

@@ -1,5 +1,7 @@
+require('babel-core/register');
+
+const path = require('path');
 // Karma configuration
-// Generated on Mon Aug 31 2015 10:12:41 GMT-0700 (PDT)
 
 module.exports = function(config) {
   config.set({
@@ -28,21 +30,23 @@ module.exports = function(config) {
     },
 
     webpack: {
-        // karma watches the test entry points
-        // (you don't need to specify the entry option)
-        // webpack watches dependencies
-
-        // webpack configuration
       module: {
-        loaders: [
-          {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel-loader',
-            query: {
-              presets: ['es2015', 'stage-0']
-            }
+        postLoaders: [{
+          test: /(\.jsx)|(\.js)$/,
+          exclude: /test|.git|node_modules\/dist/,
+          loader: 'isparta',
+          include: path.join(__dirname, '../src')
+        }],
+        loaders: [{
+          test: /\.js$/,
+          exclude: /(src\/dist|.git|node_modules)/,
+          loader: 'babel-loader',
+          query: {
+            presets: ['es2015', 'stage-0']
           }
+        }],
+        noParse: [
+          /node_modules\/sinon/
         ]
       }
     },
@@ -94,3 +98,4 @@ module.exports = function(config) {
     singleRun: true
   });
 };
+
