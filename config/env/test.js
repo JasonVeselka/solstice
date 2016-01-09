@@ -7,7 +7,17 @@ module.exports = {
       'test/*.test.js': ['webpack'],
       'dist/*.js': 'coverage'
     },
-    reporters: ['progress', 'coverage', 'coveralls'],
+    reporters: ['spec', 'coverage', 'coveralls'],
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+      instrumenterOptions: {
+        istanbul: {noCompact: true}
+      }
+    },
+    plugins: [
+      'karma-coverage'
+    ],
     autoWatch: false,
     singleRun: true
   }

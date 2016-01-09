@@ -17,7 +17,7 @@
     "test-dev": "NODE_ENV=development ./node_modules/.bin/karma start karma.conf.js",
     "test-full": "NODE_ENV=test ./node_modules/.bin/karma start karma.conf.js",
     "build": "./node_modules/.bin/babel --presets es2015,stage-0 -d dist/ src/",
-    "coveralls": "npm run cover -s && coveralls < coverage/lcov.info",
+    "coveralls": "coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "postcoveralls": "rimraf coverage",
     "prebuild": "npm run lint -s && npm run clean -s",
     "postinstall": "npm run build -s",

@@ -6,7 +6,7 @@ module.exports = {
     preprocessors: {
       'test/*.test.js': ['webpack']
     },
-    reporters: ['spec', 'junit', 'html'],
+    reporters: ['spec'],
     autoWatch: true,
     singleRun: false
   }
