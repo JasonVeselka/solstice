@@ -28,6 +28,11 @@ module.exports = function(config) {
 
     webpack: {
       module: {
+        preLoaders: [{
+          test: /(\.jsx)|(\.js)$/,
+          exclude: /(test|dist|node_modules|bower_components)\//,
+          loader: 'isparta-instrumenter-loader'
+        }],
         postLoaders: [{
           test: /(\.jsx)|(\.js)$/,
           exclude: /test|.git|node_modules\/dist/,
@@ -74,10 +79,7 @@ module.exports = function(config) {
     reporters: appConfig.karma.reporters,
 
     // lcov or lcovonly are required for generating lcov.info files
-    coverageReporter: {
-      type: 'lcov',
-      dir: 'coverage/'
-    },
+    coverageReporter: appConfig.karma.coverageReporter,
 
     // web server port
     port: 9876,

@@ -1,12 +1,11 @@
-logs
 *.log
-pids
 *.pid
 *.seed
-lib-cov
+logs
+pids
 lib
+lib-cov
 coverage
-.grunt
 .lock-wscript
 build/Release
 node_modules
@@ -14,3 +13,5 @@ dist
 .DS_Store
 test-results.xml
 reports
+report-html
+report-lcov

@@ -9,8 +9,11 @@ module.exports = {
     },
     reporters: ['spec', 'coverage', 'coveralls'],
     coverageReporter: {
-      type: 'lcov',
       dir: 'coverage/',
+      reporters: [
+        {type: 'lcov', dir: 'report-lcov'},
+        {type: 'html', dir: 'report-html'}
+      ],
       instrumenterOptions: {
         istanbul: {noCompact: true}
       }
