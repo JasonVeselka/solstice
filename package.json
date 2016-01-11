@@ -2,7 +2,7 @@
   "name": "solstice",
   "version": "0.0.1",
   "description": "Simple Date Time picker",
-  "main": "dist/index.js",
+  "main": "dist/solstice.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JasonVeselka/solstice.git"
@@ -26,7 +26,8 @@
     "test:ci": "npm run build && NODE_ENV=test ./node_modules/.bin/karma start",
     "coveralls": "coveralls < resport-lcov/**/*lcov.info",
     "postcoveralls": "rimraf coverage",
-    "postpublish": "git push origin master --follow-tags"
+    "postpublish": "git push origin master --follow-tags",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "date",
