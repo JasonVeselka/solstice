@@ -5,5 +5,5 @@ testsContext.keys().forEach(testsContext);
 
 // require all `src/**/index.js`
 // current directory and all subdirectories
-const componentsContext = require.context('../src/', false, /index\.js$/);
+const componentsContext = require.context('../src/', false, /solstice\.js$/);
 componentsContext.keys().forEach(componentsContext);

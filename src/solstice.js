@@ -1,4 +1,4 @@
-export class Solstice {
+class Solstice {
 
   constructor(contEl, options){
     if (!contEl){
@@ -548,3 +548,5 @@ export class Solstice {
     return aNumber.toString();
   }
 }
+
+module.exports.Solstice = Solstice;
