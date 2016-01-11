@@ -60,6 +60,7 @@
     "karma-coverage": "^0.5.0",
     "karma-coveralls": "^1.1.2",
     "karma-env-preprocessor": "^0.1.1",
+    "karma-firefox-launcher": "^0.1.7",
     "karma-mocha": "^0.1.9",
     "karma-sinon-chai": "^0.2.0",
     "karma-sourcemap-loader": "^0.3.6",

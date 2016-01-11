@@ -10,7 +10,8 @@ module.exports = {
     },
     plugins: [
       'karma-webpack',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-firefox-launcher'
     ],
     autoWatch: false,
     singleRun: true
