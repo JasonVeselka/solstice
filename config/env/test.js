@@ -3,23 +3,15 @@
 module.exports = {
   karma: {
     browsers: ['Chrome'],
-    preprocessors: {
-      'test/*.test.js': ['webpack'],
-      'dist/*.js': 'coverage'
-    },
     reporters: ['spec', 'coverage', 'coveralls'],
     coverageReporter: {
       dir: 'coverage/',
-      reporters: [
-        {type: 'lcov', dir: 'report-lcov'},
-        {type: 'html', dir: 'report-html'}
-      ],
-      instrumenterOptions: {
-        istanbul: {noCompact: true}
-      }
+      type: 'lcov'
     },
     plugins: [
-      'karma-coverage'
+      'karma-webpack',
+      'karma-coverage',
+      'karma-chrome-launcher'
     ],
     autoWatch: false,
     singleRun: true

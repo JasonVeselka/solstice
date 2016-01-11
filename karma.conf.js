@@ -14,7 +14,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/*.test.js'
+      'test/index.js'
     ],
 
     // list of files to exclude
@@ -24,21 +24,34 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors:
     //      https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: appConfig.karma.preprocessors,
+    preprocessors: {
+      'test/index.js': 'webpack'
+    },
 
     webpack: {
+      devtool: 'inline-source-map',
       module: {
-        preLoaders: [{
-          test: /(\.jsx)|(\.js)$/,
-          exclude: /(test|dist|node_modules|bower_components)\//,
-          loader: 'isparta-instrumenter-loader'
-        }],
-        postLoaders: [{
-          test: /(\.jsx)|(\.js)$/,
-          exclude: /test|.git|node_modules\/dist/,
-          loader: 'isparta',
-          include: path.join(__dirname, '../src')
-        }],
+        preLoaders: [
+          // transpile all files except testing sources with babel as usual
+          {
+            test: /\.js$/,
+            exclude: [
+              path.resolve('src/'),
+              path.resolve('node_modules/')
+            ],
+            loader: 'babel'
+          },
+          // transpile and instrument only testing sources with babel-istanbul
+          {
+            test: /\.js$/,
+            include: path.resolve('src/'),
+            loader: 'babel-istanbul',
+            query: {
+              cacheDirectory: true
+              // see below for possible options
+            }
+          }
+        ],
         loaders: [{
           test: /\.js$/,
           exclude: /(src\/dist|.git|node_modules)/,
@@ -59,20 +72,6 @@ module.exports = function(config) {
       noInfo: true
     },
 
-    junitReporter: {
-      ouputFile: 'test-results.xml',
-      suite: ''
-    },
-
-    htmlReporter: {
-      outputDir: 'reports',
-      templatePath: null,
-      focusOnFailures: true,
-      namedFiles: false,
-      pageTitle: 'summary',
-      urlFriendlyName: true
-    },
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -89,7 +88,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests
     // whenever any file changes
