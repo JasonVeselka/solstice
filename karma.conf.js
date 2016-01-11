@@ -5,61 +5,39 @@ const appConfig = require('./config');
 module.exports = function(config) {
   config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'sinon-chai'],
 
-    // list of files / patterns to load in the browser
     files: [
       'test/index.js'
     ],
 
-    // list of files to exclude
     exclude: [
     ],
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors:
-    //      https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'test/index.js': 'webpack'
     },
-
     webpack: {
       devtool: 'inline-source-map',
       module: {
         preLoaders: [
-          // transpile all files except testing sources with babel as usual
           {
             test: /\.js$/,
-            exclude: [
-              path.resolve('src/'),
-              path.resolve('node_modules/')
-            ],
+            exclude: /(src|bower_components|node_modules)/,
             loader: 'babel'
           },
-          // transpile and instrument only testing sources with babel-istanbul
           {
             test: /\.js$/,
-            include: path.resolve('src/'),
+            include: /(src)/,
             loader: 'babel-istanbul',
             query: {
               cacheDirectory: true
-              // see below for possible options
             }
           }
         ],
-        loaders: [{
-          test: /\.js$/,
-          exclude: /(src\/dist|.git|node_modules)/,
-          loader: 'babel-loader',
-          query: {
-            presets: ['es2015', 'stage-0']
-          }
-        }],
         noParse: [
           /node_modules\/sinon/
         ]
