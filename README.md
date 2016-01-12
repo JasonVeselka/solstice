@@ -9,12 +9,11 @@ Solstice is a vanilla Javascript date picker that requires minimal set up.
 `npm install solstice`
 
 ## Other Commands
-- ``` build ``` Builds the project.
+- ```build``` Builds css and javascript for the project.
 - ```watch ``` Builds and watches the project for development.
 - ```lint``` Runs eslint on the src files.
 - ```clean``` Cleans up the reports.
-- ```test ``` Runs tests.
-- ```test:ci``` Builds and runs tests while watching files.
+- ```test ``` Runs tests in live watch mode for development.
 
 ## Usage
 If you're not using node for your project you'll need to make sure that you've built out the dist directory. Then you should be able to access solstice by including a script tag.
