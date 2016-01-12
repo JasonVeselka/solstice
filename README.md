@@ -1,5 +1,7 @@
 # Solstice
 
+[![Build Status](https://travis-ci.org/JasonVeselka/solstice.svg?branch=master)](https://travis-ci.org/JasonVeselka/solstice)
+
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
 ## Installation
