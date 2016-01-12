@@ -36,7 +36,7 @@ class Solstice {
       EDT: '-04:00',
       AKDT: '-08:00',
       HDT: '-09:00'
-    }; 
+    };
 
     this.selector = {
       calendarWrapper: 'solstice-cal',
@@ -73,7 +73,7 @@ class Solstice {
     this.containerEl = contEl;
     this.isPM = false;
 
-    let aDate = options.date || new Date();
+    const aDate = options.date || new Date();
 
     this.setDate(aDate);
 
@@ -87,7 +87,7 @@ class Solstice {
       date = new Date(date);
     } else if (!date){
       date = new Date();
-    } 
+    }
 
     if (isNaN(date.getTime())){
       date = new Date();
@@ -96,7 +96,7 @@ class Solstice {
     this.selectedDate = date;
     this._updateShownDate(date);
   }
-  
+
   // events
   on(eventName, callback){
     // add it to the events object
@@ -105,7 +105,7 @@ class Solstice {
     } else {
       if (!this._events[eventName]){
         this._events[eventName] = [];
-      } 
+      }
       this._events[eventName].push(callback);
     }
 
@@ -126,8 +126,8 @@ class Solstice {
 
   _emit(eventName){
     if (this._events[eventName]){
-      let listeners = this._events[eventName];
-      let args = Array.prototype.slice.call(arguments, 1);
+      const listeners = this._events[eventName];
+      const args = Array.prototype.slice.call(arguments, 1);
       for (let i = 0; i < listeners.length; i++){
         listeners[i].apply(null, args);
       }
@@ -178,7 +178,7 @@ class Solstice {
 
   getDate(){
     // get am/pm
-    let isPM = this.containerEl.getElementsByClassName(this.selector.amPm)[0].value === 'pm';
+    const isPM = this.containerEl.getElementsByClassName(this.selector.amPm)[0].value === 'pm';
     // get hour
     let hour = Number(this.containerEl.getElementsByClassName(this.selector.hour)[0].value);
 
@@ -189,13 +189,13 @@ class Solstice {
     }
 
     // get minutes
-    let minute = this.containerEl.getElementsByClassName(this.selector.minute)[0].value;
-    
+    const minute = this.containerEl.getElementsByClassName(this.selector.minute)[0].value;
+
     // get seconds
-    let second = this.containerEl.getElementsByClassName(this.selector.seconds)[0].value;
-    
+    const second = this.containerEl.getElementsByClassName(this.selector.seconds)[0].value;
+
     // get timezone offset
-    let tzOffset = this.containerEl.getElementsByClassName(this.selector.tzDD)[0].value;
+    const tzOffset = this.containerEl.getElementsByClassName(this.selector.tzDD)[0].value;
 
     this.selectedDate.setHours(hour);
     this.selectedDate.setMinutes(minute);
@@ -205,12 +205,12 @@ class Solstice {
   }
 
   render(){
-    let docFrag = document.createDocumentFragment();
+    const docFrag = document.createDocumentFragment();
     // add calendar element
     docFrag.appendChild(this._createCalendar(this.shownDate));
     // add clock element
     docFrag.appendChild(this._createClock());
-    
+
     if (this.containerEl){
       this.containerEl.innerHTML = '';
       this.containerEl.appendChild(docFrag);
@@ -218,9 +218,9 @@ class Solstice {
   }
 
   _createCalendar(date){
-    let wrapper = this._createElement('div', this.selector.calendarWrapper);
-    let controls = this._createControls(date);
-    let calendar = this._renderDays(date);
+    const wrapper = this._createElement('div', this.selector.calendarWrapper);
+    const controls = this._createControls(date);
+    const calendar = this._renderDays(date);
 
     wrapper.appendChild(controls);
     wrapper.appendChild(calendar);
@@ -229,49 +229,49 @@ class Solstice {
   }
 
   _createControls(shownDate){
-    let controls = this._createElement('div', this.selector.controls);
-    let prevMonthCtrl = this._createElement('span', this.selector.prevMonth);
-    let nextMonthCtrl = this._createElement('span', this.selector.nextMonth);
-    let prevYearCtrl = this._createElement('span', this.selector.prevYear);
-    let nextYearCtrl = this._createElement('span', this.selector.nextYear);
+    const controls = this._createElement('div', this.selector.controls);
+    const prevMonthCtrl = this._createElement('span', this.selector.prevMonth);
+    const nextMonthCtrl = this._createElement('span', this.selector.nextMonth);
+    const prevYearCtrl = this._createElement('span', this.selector.prevYear);
+    const nextYearCtrl = this._createElement('span', this.selector.nextYear);
 
     if (this.showYearCtrls){
       prevYearCtrl.innerText = '<<';
       nextYearCtrl.innerText = '>>';
     }
-    
-    let selectedDate = this._buildSelectedDateElement(shownDate);
+
+    const selectedDate = this._buildSelectedDateElement(shownDate);
 
     prevMonthCtrl.innerText = '<';
     nextMonthCtrl.innerText = '>';
-    
+
     if (this.showYearCtrls){
-      controls.appendChild(prevYearCtrl);  
+      controls.appendChild(prevYearCtrl);
     }
 
     controls.appendChild(prevMonthCtrl);
     controls.appendChild(selectedDate);
     controls.appendChild(nextMonthCtrl);
-    
+
     if (this.showYearCtrls){
-      controls.appendChild(nextYearCtrl);  
+      controls.appendChild(nextYearCtrl);
     }
 
     return controls;
   }
 
   _renderDays(){
-    let aDocFrag = document.createDocumentFragment();
+    const aDocFrag = document.createDocumentFragment();
     // 5x7 grid
-    let month = [];
+    const month = [];
     // 0's mark empty cell
-    let countDate = new Date(this.shownYear, this.shownMonth, 1);
+    const countDate = new Date(this.shownYear, this.shownMonth, 1);
     // gets day of the week
-    let startWkDay = countDate.getDay();
+    const startWkDay = countDate.getDay();
     let i = 0;
 
     while (this.shownMonth === countDate.getMonth()){
-      let week = [];
+      const week = [];
       if (i === 0){
         while (week.length !== startWkDay){
           week.push(0);
@@ -285,25 +285,25 @@ class Solstice {
       }
 
       if (week.length < 7){
-       while (week.length < 7){
+        while (week.length < 7){
           week.push(0);
-        } 
+        }
       }
       month.push(week);
       i++;
     }
-    
-    let monthEl = this._createElement('div', this.selector.monthWrapper);
-    
+
+    const monthEl = this._createElement('div', this.selector.monthWrapper);
+
     for (let weekInt = 0; weekInt < month.length; weekInt++){
-      let week = month[weekInt];
-      let aWeek = this._createElement('div', this.selector.week);
+      const week = month[weekInt];
+      const aWeek = this._createElement('div', this.selector.week);
       for (let day = 0; day < week.length; day++){
-        let dayNumber = week[day];
-        let dayClasses = dayNumber === this.shownDay ? [this.selector.day, 'solstice-selected'] : this.selector.day;
-        let aDay = this._createElement('span', dayClasses);
+        const dayNumber = week[day];
+        const dayClasses = dayNumber === this.shownDay ? [this.selector.day, 'solstice-selected'] : this.selector.day;
+        const aDay = this._createElement('span', dayClasses);
         if (dayNumber){
-          aDay.innerText = dayNumber;  
+          aDay.innerText = dayNumber;
         }
         aWeek.appendChild(aDay);
       }
@@ -315,21 +315,21 @@ class Solstice {
   }
 
   _buildSelectedDateElement(date){
-    let el = this._createElement('span', this.selector.selectedDate);
+    const el = this._createElement('span', this.selector.selectedDate);
     let updateDate;
 
-    if (!date){
-      updateDate = this.getDate();
-    } else {
+    if (date){
       updateDate = date;
+    } else {
+      updateDate = this.getDate();
     }
 
-    let month = this._createElement('span', this.selector.monthDisplay);
-    let year = this._createElement('span', this.selector.yearDisplay);
+    const month = this._createElement('span', this.selector.monthDisplay);
+    const year = this._createElement('span', this.selector.yearDisplay);
 
     month.innerText = ` ${this.monthWords[updateDate.getMonth()]} `;
     year.innerText = `${updateDate.getFullYear()} `;
-    
+
     el.appendChild(month);
     el.appendChild(year);
 
@@ -337,34 +337,34 @@ class Solstice {
   }
 
   _createClock(){
-    let frag = document.createDocumentFragment();
+    const frag = document.createDocumentFragment();
 
-    let timewrapper = this._createElement('div', this.selector.timewrap);
-    
+    const timewrapper = this._createElement('div', this.selector.timewrap);
+
     // separator
-    let separator = this._createElement('span', this.selector.separator);
+    const separator = this._createElement('span', this.selector.separator);
     separator.innerText = this.timeSeparator;
 
-    let separatorToo = separator.cloneNode(true);
+    const separatorToo = separator.cloneNode(true);
     // Hour
-    let hourEl = this._createElement('input', this.selector.hour);
+    const hourEl = this._createElement('input', this.selector.hour);
     hourEl.value = this.shownHour;
     // Minute
-    let minEl = this._createElement('input', this.selector.minute);
+    const minEl = this._createElement('input', this.selector.minute);
     minEl.value = this.shownMinutes;
     // Seconds
-    let secEl = this._createElement('input', this.selector.seconds);
+    const secEl = this._createElement('input', this.selector.seconds);
     secEl.value = this.shownSeconds;
     // timezone dropdown
-    let tzDD = this._createElement('select', this.selector.tzDD);
+    const tzDD = this._createElement('select', this.selector.tzDD);
 
     // am/pm dropdown
-    let amPmDD = this._createElement('select', this.selector.amPm);
-    let amOption = this._createElement('option');
+    const amPmDD = this._createElement('select', this.selector.amPm);
+    const amOption = this._createElement('option');
     amOption.value = 'am';
     amOption.innerText = 'AM';
 
-    let pmOption = this._createElement('option');
+    const pmOption = this._createElement('option');
     pmOption.value = 'pm';
     pmOption.innerText = 'PM';
     let selectedIndex = 0;
@@ -387,14 +387,14 @@ class Solstice {
     timewrapper.appendChild(separator);
     timewrapper.appendChild(secEl);
 
-    let timeDDWrapper = this._createElement('div', this.selector.dropdownWrapper);
+    const timeDDWrapper = this._createElement('div', this.selector.dropdownWrapper);
     timeDDWrapper.appendChild(amPmDD);
     tzDD.appendChild(this._createTimeZoneOptions());
     timeDDWrapper.appendChild(tzDD);
     timewrapper.appendChild(timeDDWrapper);
 
     frag.appendChild(timewrapper);
-    
+
     return frag;
   }
 
@@ -419,11 +419,11 @@ class Solstice {
   }
 
   _handleWeekClick(event){
-    
+
   }
 
   _handleDaySelected(event){
-    let target = event.target || event.toElement;
+    const target = event.target || event.toElement;
     this.selectedDate.setDate(target.innerText);
     this.selectedDate.setMonth(this.shownMonth);
     this.selectedDate.setFullYear(this.shownYear);
@@ -432,7 +432,7 @@ class Solstice {
   }
 
   _createElement(tagType, classes){
-    let el = document.createElement(tagType);
+    const el = document.createElement(tagType);
     let classString = '';
 
     if (classes && classes.join){
@@ -476,8 +476,8 @@ class Solstice {
   }
 
   _delegate(event){
-    let target = event.target || event.toElement;
-    let classList = target.classList;
+    const target = event.target || event.toElement;
+    const classList = target.classList;
 
     if (classList.contains(this.selector.prevMonth)){
       this._handlePrevMonthClick(event);
@@ -509,11 +509,11 @@ class Solstice {
   }
 
   _createTimeZoneOptions(){
-    let timeFrag = document.createDocumentFragment();
-    let timezones = this._getTimeZones();
-    let arr = Object.keys(timezones);
+    const timeFrag = document.createDocumentFragment();
+    const timezones = this._getTimeZones();
+    const arr = Object.keys(timezones);
     for (let index = 0; index < arr.length; index++){
-      let op = this._createElement('option');
+      const op = this._createElement('option');
       op.innerText = arr[index];
       op.value = timezones[arr[index]];
       timeFrag.appendChild(op);
@@ -522,22 +522,24 @@ class Solstice {
   }
 
   _getTimeZones(){
+    let zone;
     if (this._isDST(this.selectedDate)){
-      return this.timeDTZones;
+      zone = this.timeDTZones;
     } else {
-      return this.timeSTZones;
+      zone = this.timeSTZones;
     }
+    return zone;
   }
 
   _isDST(date){
-    let fullYear = date.getFullYear();
-    let jan = new Date(fullYear, 0, 1);
-    let jul = new Date(fullYear, 6, 1);
+    const fullYear = date.getFullYear();
+    const jan = new Date(fullYear, 0, 1);
+    const jul = new Date(fullYear, 6, 1);
     return date.getTimezoneOffset() < (Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset()));
   }
 
   _formatToISO(date, timeZoneOffset){
-    let isoString = `${this.monthWords[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${this._addLeadingZero(date.getHours())}:${this._addLeadingZero(date.getMinutes())}:${this._addLeadingZero(date.getSeconds())} GMT ${timeZoneOffset}`;
+    const isoString = `${this.monthWords[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${this._addLeadingZero(date.getHours())}:${this._addLeadingZero(date.getMinutes())}:${this._addLeadingZero(date.getSeconds())} GMT ${timeZoneOffset}`;
     return isoString;
   }
 
@@ -547,8 +549,4 @@ class Solstice {
   }
 }
 
-if (module && module.exports){
-  module.exports = Solstice;
-} else {
-  window.Solstice = Solstice;
-}
+module.exports.Solstice = Solstice;

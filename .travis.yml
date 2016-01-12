@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+env:
+  global:
+    - CI: true
+    - GH_REF: github.com/JasonVeselka/solstice.git
+    - secure: FRrN+PqExUoK5nFS6cbns6kNW1/uzEVVOyCJ2SObT0XzpQGu4Jl65NtxHfIfIi8GsvaAR0LNfk8pkMEVYb7EJiajtsMSRc93lSZo9XBmrDWD3enuQDqn4G2yT4NB7isapAnZGENOlH5hdu8/oYKedGb3jqD0xknC9+WIzyJhI0va5gjFDGJWSjYmeHQGaJukxuMb++Da1s0HV4+9qJrGIiTBk3NeGX2qRzOYyHJqOoOcdyehIbFIGUQUpffyEMH43sBTADMMPzL1oEvWR2fU85upSx6z4BI1vnjMfddPTtQrudiY9x8eDcJcnBk1hFMBJ4eI/t5GM/VB/fytrQ3YYpvnlTLmD4aHKtOXSLwkmPUho7qt5QD2SiG9JZ7VH9H4G08hSCEuAzUwnSvVwBBkCl1Kski+cDDCq5Slq3hbIrLuaemPKM3VS15SGcrNuHqiVvCcuq9YlAv6RHqtmRqOWN2fOG1S1YFr7iVUKZxQKVI7uWqX9KKbAcw7S/yh2PglB9+uQkwiGVfFsVtqTW8MyRA9VO6tNoKJ2x6pKpyinbrHgHniAlaLfaqFmDm2HmM+/igfOA/KE9Q7qroHTZhiPMZcy9HtjYbug2XDL9hVAohDvuJP3YeIb2DrvOVmawVRUvTB6KNtmx6WytSzsCz1Kvl8WjLNxe4ff3a6FvoaH48=
+    - secure: igU+ZPxb04K3ckDFTHamGBguDQgXTThbUVif1WtmpNVZCoklsj1xw85oET8nYH/5+MZ6WcpjyM5bsOA3eTllodUiYyh3BxSrDTq4+xnrmkmpv5OHG6P84Z2ikBRiAE6tCPmpihsLfKNBh+HOQJtiqb/zPlv4FLB/4fSd3wAdMWsLHWhhtbfkVstQPqjkboqizVzGOvS97FttxlqisG6MCPrPttmhndiz85/7ju3KG1tYtPShDFCHPC61sR/9LQMgr7xoX49JQv3Y5wzqdVa8WKoQDRwFlsL6+FUQIfDpo2CVbjFCvZcS3XsHNSze6nx+ilZJHFu60dQ6FDchf/aokjj5eiWS7felNSlLalJ49u9CfeiZPivYkKKwbk/lPXl0+LTesLWdYW3M4ATo+1/2BfgzawBWiFge11MP2qUprmeiKawL7QbeU9cXacUXrbvZxjA40suXzYrv5jVz0fyuXyuGffrrs5WcSF5DaiOyR9dX4jdNz05JRY6o0XxKAu686D8hVs01+cmDQdNqX+T07HlftQ59S1qrFmwLU7Q0nJ3b7J4QrDTgr93OAHbhE8ra805AT4YjuVOblTlft5c13HHAR9iyyybr+bHQQeGLPKLSEXK2dXV64JuDawU5VPFRlhwmHI/4lKrO0ua1jxWz6cNyly5EAyeVwPwXzR6Kf/A=
+node_js:
+  - stable
+script:
+  - npm run test-ci
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+after_success:
+  - npm run coveralls
+  - bash deploy.sh

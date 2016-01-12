@@ -5,7 +5,7 @@
 }
 .solstice-columns{
   display: table-row;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid;
 }
 
 .solstice-week-day{

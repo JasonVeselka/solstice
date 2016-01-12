@@ -1,11 +1,11 @@
-logs
 *.log
-pids
 *.pid
 *.seed
+logs
+pids
+lib
 lib-cov
 coverage
-.grunt
 .lock-wscript
 build/Release
 node_modules

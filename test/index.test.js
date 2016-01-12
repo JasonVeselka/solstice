@@ -1,14 +1,15 @@
-import {expect, sinon} from './sinonChai';
-import Solstice from '../dist/solstice';
+import sinon from 'sinon/pkg/sinon';
+import {expect} from 'chai';
+import {Solstice} from '../dist/solstice';
 
 describe('Solstice', function() {
   let sandbox;
 
-  beforeEach(()=>{
+  beforeEach(() => {
     sandbox = sinon.sandbox.create();
   });
 
-  afterEach(()=>{
+  afterEach(() => {
     sandbox.restore();
   });
 
@@ -21,8 +22,8 @@ describe('Solstice', function() {
   });
 
   it('should return month words correctly', () => {
-    let defaultDiv = document.createDocumentFragment();
-    let sols = new Solstice(defaultDiv);
+    const defaultDiv = document.createDocumentFragment();
+    const sols = new Solstice(defaultDiv);
     expect(sols.monthWords[0]).to.equal('January');
     expect(sols.monthWords[1]).to.equal('February');
     expect(sols.monthWords[2]).to.equal('March');
@@ -38,7 +39,8 @@ describe('Solstice', function() {
   });
 
   describe('_formatToISO', () => {
-    let defaultDiv, sols;
+    let defaultDiv;
+    let sols;
 
     beforeEach(() => {
       defaultDiv = document.createDocumentFragment();
@@ -46,8 +48,8 @@ describe('Solstice', function() {
     });
 
     it('should return a string that is a valid date', () => {
-      let ret = sols._formatToISO(new Date(), '-09:00');
-      let retDate = new Date(ret);
+      const ret = sols._formatToISO(new Date(), '-09:00');
+      const retDate = new Date(ret);
       expect(ret).to.be.a('string');
       expect(retDate).to.be.a('date');
       expect(retDate.getTime()).to.be.a('number');
@@ -61,13 +63,13 @@ describe('Solstice', function() {
       defaultDiv = document.createDocumentFragment();
     });
 
-    it ('should have default selectBy be day', () => {
-      let sols = new Solstice(defaultDiv);
+    it('should have default selectBy be day', () => {
+      const sols = new Solstice(defaultDiv);
       expect(sols.selectBy).to.equal('day');
     });
 
-    it ('should allow default selectBy to be overridden', () => {
-      let sols = new Solstice(defaultDiv, {selectBy: 'week'});
+    it('should allow default selectBy to be overridden', () => {
+      const sols = new Solstice(defaultDiv, {selectBy: 'week'});
       expect(sols.selectBy).to.equal('week');
     });
   });
@@ -82,11 +84,11 @@ describe('Solstice', function() {
     });
 
     it('should add a leading zero if under 10', () => {
-      let num = 9;
+      const num = 9;
       expect(sols._addLeadingZero(num)).to.equal('09');
     });
     it('should not add a leading zero to a number over 10', () => {
-      let num = 12;
+      const num = 12;
       expect(sols._addLeadingZero(num)).to.equal('12');
     });
   });
@@ -116,7 +118,7 @@ describe('Solstice', function() {
       sols.on('someEvent', () => {});
       sols.on('anotherEvent', () => {});
       expect(sols._events.someEvent.length).to.equal(1);
-      expect(sols._events['anotherEvent'].length).to.equal(1);
+      expect(sols._events.anotherEvent.length).to.equal(1);
     });
 
     it('should throw error if there is no callback supplied', () => {
@@ -126,7 +128,8 @@ describe('Solstice', function() {
 
   describe('off', () => {
     let defaultDiv = document.createDocumentFragment();
-    let sols, testCBStub;
+    let sols;
+    let testCBStub;
     let count = 0;
 
     beforeEach(() => {
@@ -157,7 +160,8 @@ describe('Solstice', function() {
 
   describe('_emit', () => {
     let defaultDiv = document.createDocumentFragment();
-    let sols, testCBStub;
+    let sols;
+    let testCBStub;
     let count = 0;
 
     beforeEach(() => {
@@ -182,16 +186,16 @@ describe('Solstice', function() {
   });
 
   describe('event handlers', () => {
-    let defaultDiv,
-      sols,
-      emitStore;
+    let defaultDiv;
+    let sols;
+    let emitStore;
     let eventsFired = [];
 
     beforeEach(() => {
       defaultDiv = document.createDocumentFragment();
       sols = new Solstice(defaultDiv, {startDate: new Date('2015/01/05')});
       emitStore = sols._emit;
-      sols._emit = (eventName) => {
+      sols._emit = eventName => {
         eventsFired.push(eventName);
       };
     });
@@ -202,7 +206,6 @@ describe('Solstice', function() {
     });
 
     describe('_nextMonth', () => {
-
       it('should emit nextMonth event', () => {
         sols._nextMonth();
         expect(eventsFired.length).to.equal(1);
@@ -226,11 +229,9 @@ describe('Solstice', function() {
         sols._nextMonth();
         expect(sols.shownDay).to.equal(1);
       });
-
     });
 
     describe('_prevMonth', () => {
-
       it('should emit prevMonth event', () => {
         sols._prevMonth();
         expect(eventsFired.length).to.equal(1);
@@ -254,7 +255,6 @@ describe('Solstice', function() {
         sols._prevMonth();
         expect(sols.shownDay).to.equal(1);
       });
-
     });
 
     describe('_nextYear', () => {
@@ -294,24 +294,24 @@ describe('Solstice', function() {
     });
 
     it('should set the date to the date given', () => {
-      let aTestDate = new Date('2014/12/01');
-      let sols = new Solstice(defaultDiv, {date: aTestDate});
+      const aTestDate = new Date('2014/12/01');
+      const sols = new Solstice(defaultDiv, {date: aTestDate});
       sols.setDate(new Date('2015/10/01'));
       expect(sols.selectedDate).to.not.equal(aTestDate);
     });
 
     it('should set the date to the current date if given a date string and not a date object', () => {
-      let aTestDate = new Date('2014/12/01');
-      let anotherTestDate = new Date();
-      let sols = new Solstice(defaultDiv, {date: aTestDate});
+      const aTestDate = new Date('2014/12/01');
+      const anotherTestDate = new Date();
+      const sols = new Solstice(defaultDiv, {date: aTestDate});
       sols.setDate('invalid date');
       expect(anotherTestDate.getDate()).to.equal(sols.selectedDate.getDate());
     });
 
     it('should make the date an actual date object if the object supplied is not a date object', () => {
-      let aTestDate = new Date('2014/12/01');
-      let anotherTestDate = new Date();
-      let sols = new Solstice(defaultDiv, {date: aTestDate});
+      const aTestDate = new Date('2014/12/01');
+      const anotherTestDate = new Date();
+      const sols = new Solstice(defaultDiv, {date: aTestDate});
       anotherTestDate.getTime = () => {
         return null;
       };
@@ -321,8 +321,8 @@ describe('Solstice', function() {
     });
 
     it('should set to the right time', () => {
-      let aTestDate = new Date('January 14, 2014 11:35:00 PST');
-      let sols = new Solstice(defaultDiv);
+      const aTestDate = new Date('January 14, 2014 11:35:00 PST');
+      const sols = new Solstice(defaultDiv);
       sols.setDate(aTestDate);
       expect(sols.selectedDate.getHours()).to.equal(aTestDate.getHours());
       expect(sols.selectedDate.getMinutes()).to.equal(aTestDate.getMinutes());
@@ -331,19 +331,21 @@ describe('Solstice', function() {
   });
 
   describe('delegate event', () => {
-    let defaultDiv, sols, fakeEvent;
+    let defaultDiv;
+    let sols;
+    let fakeEvent;
 
     beforeEach(() => {
       defaultDiv = document.createDocumentFragment();
       sols = new Solstice(defaultDiv);
       fakeEvent = {
         target: {
-          classList:{
+          classList: {
             contains: () => {
-             return true;
-           }
-         }
-       }
+              return true;
+            }
+          }
+        }
       };
     });
 
@@ -351,9 +353,9 @@ describe('Solstice', function() {
       sandbox.spy(sols, '_prevMonth');
       sandbox.stub(sols, 'render');
 
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.prevMonth;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._prevMonth.callCount).to.equal(1);
@@ -363,9 +365,9 @@ describe('Solstice', function() {
       sandbox.spy(sols, '_nextMonth');
       sandbox.stub(sols, 'render');
 
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.nextMonth;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._nextMonth.callCount).to.equal(1);
@@ -375,9 +377,9 @@ describe('Solstice', function() {
       sandbox.spy(sols, '_prevYear');
       sandbox.stub(sols, 'render');
 
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.prevYear;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._prevYear.callCount).to.equal(1);
@@ -387,9 +389,9 @@ describe('Solstice', function() {
       sandbox.spy(sols, '_nextYear');
       sandbox.stub(sols, 'render');
 
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.nextYear;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._nextYear.callCount).to.equal(1);
@@ -400,9 +402,9 @@ describe('Solstice', function() {
       sandbox.stub(sols, 'render');
 
       sols.selectBy = 'week';
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.week;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._handleWeekClick.callCount).to.equal(1);
@@ -413,9 +415,9 @@ describe('Solstice', function() {
       sandbox.stub(sols, 'render');
 
       sols.selectBy = 'day';
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.week;
-      }
+      };
 
       sols._delegate(fakeEvent);
       expect(sols._handleWeekClick.callCount).to.equal(0);
@@ -426,9 +428,9 @@ describe('Solstice', function() {
       sandbox.stub(sols, 'render');
 
       sols.selectBy = 'day';
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.day;
-      }
+      };
 
       fakeEvent.target.innerText = '1';
 
@@ -442,22 +444,23 @@ describe('Solstice', function() {
       sandbox.stub(sols, 'render');
 
       sols.selectBy = 'week';
-      fakeEvent.target.classList.contains = (selector) => {
+      fakeEvent.target.classList.contains = selector => {
         return selector === sols.selector.day;
-      }
+      };
       sols._delegate(fakeEvent);
       expect(sols._handleDaySelected.callCount).to.equal(0);
     });
 
     it('should be called in the constructor', () => {
       sandbox.spy(Solstice.prototype, '_addDefaultEvents');
-      let localSols = new Solstice(defaultDiv);
+      const localSols = new Solstice(defaultDiv);
       expect(localSols._addDefaultEvents.callCount).to.equal(1);
     });
   });
 
   describe('getDate', () => {
-    let sols, defaultDiv;
+    let sols;
+    let defaultDiv;
 
     beforeEach(() => {
       defaultDiv = document.getElementsByTagName('body')[0];
@@ -465,17 +468,17 @@ describe('Solstice', function() {
     });
 
     it('should return a date object', () => {
-      let retDate = sols.getDate();
+      const retDate = sols.getDate();
       expect(retDate.getTime).to.be.a('function');
     });
 
     it.skip('should return the right date', () => {
-      let aTestDate = new Date(1995, 11, 17, 3, 24, 0);
+      const aTestDate = new Date(1995, 11, 17, 3, 24, 0);
       sols = new Solstice(defaultDiv, {date: aTestDate});
-      let retDate = sols.getDate();
+      const retDate = sols.getDate();
       if (retDate.getTimezoneOffset() !== aTestDate.getTimezoneOffset()){
         // in a different timezone
-        retDate.setHours(aTestDate.getHours() - retDate.getTimezoneOffset()/60);
+        retDate.setHours(aTestDate.getHours() - retDate.getTimezoneOffset() / 60);
       }
       expect(retDate.getDate()).to.equal(aTestDate.getDate());
       expect(retDate.getHours()).to.equal(aTestDate.getHours());
@@ -491,12 +494,12 @@ describe('Solstice', function() {
     it.skip('should return the right hours timezone based', () => {
       const estHour = 11;
       const estMin = 35;
-      let aTestDate = new Date(`January 14, 2014 ${estHour}:${estMin}:00 EST`);
+      const aTestDate = new Date(`January 14, 2014 ${estHour}:${estMin}:00 EST`);
       sols = new Solstice(defaultDiv, {date: aTestDate});
-      let retDate = sols.getDate();
+      const retDate = sols.getDate();
       expect(retDate.getDate()).to.equal(aTestDate.getDate());
-      let anotherDate = new Date();
-      let tzOffset = anotherDate.getTimezoneOffset()/60;
+      const anotherDate = new Date();
+      let tzOffset = anotherDate.getTimezoneOffset() / 60;
       if (sols._isDST(anotherDate)){
         tzOffset++;
       }
@@ -506,7 +509,8 @@ describe('Solstice', function() {
   });
 
   describe('render', () => {
-    let sols, defaultDiv;
+    let sols;
+    let defaultDiv;
 
     beforeEach(() => {
       defaultDiv = document.getElementsByTagName('body')[0];
@@ -527,7 +531,7 @@ describe('Solstice', function() {
       });
 
       it('should attempt to append child to the containerEl if it is defined', () => {
-        sols = new Solstice({innerText:'', appendChild: sandbox.stub()});
+        sols = new Solstice({innerText: '', appendChild: sandbox.stub()});
         sols.render();
         // should be called twice because inital render and us calling it above
         expect(sols.containerEl.appendChild.callCount).to.equal(2);
@@ -537,28 +541,28 @@ describe('Solstice', function() {
     describe('_createControls', () => {
       beforeEach(() => {
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            }
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
 
-        sols._buildSelectedDateElement = (shownDate) => {
+        sols._buildSelectedDateElement = shownDate => {
           return {
             type: 'dateElement',
-            shownDate: shownDate
-          }
-        }
+            shownDate
+          };
+        };
       });
 
       it('should return controls with expected elements', () => {
-        let controls = sols._createControls(sols.shownDate);
+        const controls = sols._createControls(sols.shownDate);
         expect(controls.type).to.equal('div');
         expect(controls.children[0].innerText).to.equal('<');
         expect(controls.children.length).to.equal(3);
@@ -569,17 +573,16 @@ describe('Solstice', function() {
 
       it('should return with year controls if they are turned on', () => {
         sols.showYearCtrls = true;
-        let controls = sols._createControls(sols.shownDate);
+        const controls = sols._createControls(sols.shownDate);
         expect(controls.children[0].innerText).to.equal('<<');
         expect(controls.children[4].innerText).to.equal('>>');
         expect(controls.children.length).to.equal(5);
       });
-
     });
 
     describe('_createElement', () => {
       it('should return an element with no classes if none are sent', () => {
-        let returned = sols._createElement('div');
+        const returned = sols._createElement('div');
         expect(returned.tagName).to.equal('DIV');
         expect(typeof (returned)).to.equal('object');
         expect(returned.classList.length).to.equal(0);
@@ -587,7 +590,7 @@ describe('Solstice', function() {
 
       it('should return a single class if a single class is passed', () => {
         const classes = 'aclass';
-        let returned = sols._createElement('div', classes);
+        const returned = sols._createElement('div', classes);
         expect(returned.tagName).to.equal('DIV');
         expect(typeof (returned)).to.equal('object');
         expect(returned.classList.length).to.equal(1);
@@ -596,7 +599,7 @@ describe('Solstice', function() {
 
       it('should return a space separated class string if an array of classes are sent', () => {
         const classes = ['aclass', 'bclass'];
-        let returned = sols._createElement('div', classes);
+        const returned = sols._createElement('div', classes);
         expect(returned.tagName).to.equal('DIV');
         expect(typeof (returned)).to.equal('object');
         expect(returned.classList.length).to.equal(2);
@@ -608,30 +611,30 @@ describe('Solstice', function() {
     describe('_createCalendar', () => {
       beforeEach(() => {
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
 
-        sols._createControls = (shownDate) => {
+        sols._createControls = shownDate => {
           return {
             type: 'controls',
-            shownDate: shownDate
-          }
-        }
+            shownDate
+          };
+        };
 
-        sols._renderDays = (date) => {
+        sols._renderDays = date => {
           return {
             type: 'days',
-            date: date
-          }
+            date
+          };
         };
       });
 
@@ -654,7 +657,7 @@ describe('Solstice', function() {
       });
 
       it('should attempt to append controls, and the calendar to the div returned from createElement', () => {
-        let returnedEl = sols._createCalendar(sols.shownDate);
+        const returnedEl = sols._createCalendar(sols.shownDate);
         expect(returnedEl.children.length).to.equal(2);
         expect(returnedEl.children[0].type).to.equal('controls');
         expect(returnedEl.children[1].type).to.equal('days');
@@ -664,29 +667,29 @@ describe('Solstice', function() {
     describe('_buildSelectedDateElement', () => {
       beforeEach(() => {
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
       });
 
       it('should have month and year elements with correct values with given date', () => {
-        let aTestDate = new Date('2014/12/01');
-        let returnedEl = sols._buildSelectedDateElement(aTestDate);
+        const aTestDate = new Date('2014/12/01');
+        const returnedEl = sols._buildSelectedDateElement(aTestDate);
         expect(returnedEl.children.length).to.equal(2);
         expect(returnedEl.children[0].innerText.toLowerCase()).to.equal(' december ');
         expect(returnedEl.children[1].innerText).to.equal('2014 ');
       });
 
       it.skip('should have month and year when a date is not given', () => {
-        let returnedEl = sols._buildSelectedDateElement();
+        const returnedEl = sols._buildSelectedDateElement();
         expect(returnedEl.children.length).to.equal(2);
         expect(returnedEl.children[0].innerText.toLowerCase()).to.equal(` ${sols.monthWords[sols.shownMonth].toLowerCase()} `);
         expect(returnedEl.children[1].innerText).to.equal(`${sols.shownYear} `);
@@ -694,51 +697,51 @@ describe('Solstice', function() {
     });
 
     describe('_renderDays', () => {
-      let oldCreateDocFrag = document.createDocumentFragment;
+      const oldCreateDocFrag = document.createDocumentFragment;
 
       beforeEach(() => {
         document.createDocumentFragment = () => {
-          let retObj = {
+          const retObj = {
             children: [],
             type: 'frag',
             selector: 'body',
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
       });
 
       afterEach(() => {
         document.createDocumentFragment = oldCreateDocFrag;
-      })
+      });
 
       it('should render all the days in the month with exact beginning and end of week', () => {
-        let testDate = new Date('2015/2/1');
+        const testDate = new Date('2015/2/1');
         // not a leap year and allows for correct day
-        let dayCount = 28;
+        const dayCount = 28;
 
         sols.setDate(testDate);
-        let frag = sols._renderDays();
-        let weeks = frag.children[0].children;
+        const frag = sols._renderDays();
+        const weeks = frag.children[0].children;
         let daysArr = [];
 
         for (let i = 0; i < weeks.length; i++){
-          let week = weeks[i];
+          const week = weeks[i];
           if (week.children.length > 0){
             daysArr = daysArr.concat(week.children);
           }
@@ -749,44 +752,44 @@ describe('Solstice', function() {
     });
 
     describe('_createTimeZoneOptions', () => {
-      let oldCreateDocFrag = document.createDocumentFragment;
+      const oldCreateDocFrag = document.createDocumentFragment;
 
       beforeEach(() => {
         document.createDocumentFragment = () => {
-          let retObj = {
+          const retObj = {
             children: [],
             type: 'frag',
             selector: 'body',
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
 
         sandbox.stub(sols, '_getTimeZones');
       });
 
       afterEach(() => {
         document.createDocumentFragment = oldCreateDocFrag;
-      })
+      });
 
       it('should render DST timezones correctly', () => {
         sols._getTimeZones.returns(sols.timeDTZones);
-        let timeFrag = sols._createTimeZoneOptions();
+        const timeFrag = sols._createTimeZoneOptions();
         expect(timeFrag.children.length).to.equal(6);
         // using PST as a base for this test (is PDT in dropdown)
         expect(timeFrag.children[0].value).to.equal('-07:00');
@@ -794,37 +797,37 @@ describe('Solstice', function() {
       });
 
       it('should render standard timezones correctly', () => {
-         sols._getTimeZones.returns(sols.timeSTZones);
-        let timeFrag = sols._createTimeZoneOptions();
+        sols._getTimeZones.returns(sols.timeSTZones);
+        const timeFrag = sols._createTimeZoneOptions();
         expect(timeFrag.children.length).to.equal(6);
         // using PST as a base for this test
         expect(timeFrag.children[0].value).to.equal('-08:00');
         expect(timeFrag.children[0].type).to.equal('option');
       });
-    })
+    });
 
     describe('_createClock', () => {
-      let oldCreateDocFrag = document.createDocumentFragment;
+      const oldCreateDocFrag = document.createDocumentFragment;
 
       beforeEach(() => {
         document.createDocumentFragment = () => {
-          let retObj = {
+          const retObj = {
             children: [],
             type: 'frag',
             selector: 'body',
             innerText: ''
           };
           retObj.appendChild = function(child) {
-              this.children.push(child);
-            };
+            this.children.push(child);
+          };
           return retObj;
-        }
+        };
 
         sols._createElement = (type, selector) => {
-          let retObj = {
+          const retObj = {
             children: [],
-            type: type,
-            selector: selector,
+            type,
+            selector,
             innerText: ''
           };
           retObj.appendChild = function(child) {
@@ -836,7 +839,7 @@ describe('Solstice', function() {
           };
 
           return retObj;
-        }
+        };
       });
 
       afterEach(() => {
@@ -844,19 +847,19 @@ describe('Solstice', function() {
       });
 
       it('should have 3 inputs with correct numbers', () => {
-        let hour = sols.shownHour;
-        let minute = sols.shownMinutes;
-        let second = sols.shownSeconds;
-        let clock = sols._createClock();
+        const hour = sols.shownHour;
+        const minute = sols.shownMinutes;
+        const second = sols.shownSeconds;
+        const clock = sols._createClock();
         expect(clock).to.be.a('object');
         expect(clock.children[0].selector).to.equal(sols.selector.timewrap);
 
-        let timewrap = clock.children[0];
+        const timewrap = clock.children[0];
 
         // first 5 children 2nd and 4th are separators
-        let firstInput = timewrap.children[0];
-        let secondInput = timewrap.children[2];
-        let thirdInput = timewrap.children[4];
+        const firstInput = timewrap.children[0];
+        const secondInput = timewrap.children[2];
+        const thirdInput = timewrap.children[4];
 
         expect(firstInput.value).to.equal(hour);
         expect(secondInput.value).to.equal(minute);
@@ -864,24 +867,24 @@ describe('Solstice', function() {
       });
 
       it('should have separators between inputs', () => {
-        let clock = sols._createClock();
-        let timewrap = clock.children[0];
+        const clock = sols._createClock();
+        const timewrap = clock.children[0];
 
         // first 5 children 2nd and 4th are separators
-        let firstSeparator = timewrap.children[1];
-        let secondSeparator = timewrap.children[3];
+        const firstSeparator = timewrap.children[1];
+        const secondSeparator = timewrap.children[3];
 
         expect(firstSeparator.innerText).to.equal(':');
         expect(secondSeparator.innerText).to.equal(':');
       });
 
       it('should have 2 drop downs', () => {
-        let clock = sols._createClock();
-        let timewrapper = clock.children[0];
-        let ddwrapper = timewrapper.children[5];
+        const clock = sols._createClock();
+        const timewrapper = clock.children[0];
+        const ddwrapper = timewrapper.children[5];
 
-        let ddOne = ddwrapper.children[0];
-        let ddTwo = ddwrapper.children[1];
+        const ddOne = ddwrapper.children[0];
+        const ddTwo = ddwrapper.children[1];
 
         expect(ddOne.type).to.equal('select');
         expect(ddTwo.type).to.equal('select');
@@ -889,12 +892,12 @@ describe('Solstice', function() {
 
       it('should render PM selected if time is PM', () => {
         sols.setDate('January 25, 2015 11:45:00 PM');
-        let clock = sols._createClock();
-        let timewrapper = clock.children[0];
-        let ddwrapper = timewrapper.children[5];
+        const clock = sols._createClock();
+        const timewrapper = clock.children[0];
+        const ddwrapper = timewrapper.children[5];
 
-        let ddOne = ddwrapper.children[0];
-        let ddTwo = ddwrapper.children[1];
+        const ddOne = ddwrapper.children[0];
+        const ddTwo = ddwrapper.children[1];
 
         expect(ddOne.type).to.equal('select');
         expect(ddTwo.type).to.equal('select');
@@ -905,12 +908,12 @@ describe('Solstice', function() {
 
       it('should render AM selected if time is AM', () => {
         sols.setDate('January 25, 2015 11:45:00 AM');
-        let clock = sols._createClock();
-        let timewrapper = clock.children[0];
-        let ddwrapper = timewrapper.children[5];
+        const clock = sols._createClock();
+        const timewrapper = clock.children[0];
+        const ddwrapper = timewrapper.children[5];
 
-        let ddOne = ddwrapper.children[0];
-        let ddTwo = ddwrapper.children[1];
+        const ddOne = ddwrapper.children[0];
+        const ddTwo = ddwrapper.children[1];
 
         expect(ddOne.type).to.equal('select');
         expect(ddTwo.type).to.equal('select');
@@ -922,7 +925,8 @@ describe('Solstice', function() {
   });
 
   describe('_getTimeZones', () => {
-    let defaultDiv, sols;
+    let defaultDiv;
+    let sols;
 
     beforeEach(() => {
       defaultDiv = document.createDocumentFragment();
@@ -932,13 +936,13 @@ describe('Solstice', function() {
 
     it('should return DST timezones if _isDST returns true', () => {
       sols._isDST.returns(true);
-      let timezones = sols._getTimeZones();
+      const timezones = sols._getTimeZones();
       expect(timezones).to.eql(sols.timeDTZones);
     });
 
     it('should return standard timezones if _isDST returns false', () => {
       sols._isDST.returns(false);
-      let timezones = sols._getTimeZones();
+      const timezones = sols._getTimeZones();
       expect(timezones).to.eql(sols.timeSTZones);
     });
   });
