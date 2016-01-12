@@ -9,6 +9,7 @@ env:
 node_js:
   - stable
 script:
+  - npm run build
   - npm run test-ci
 before_script:
   - export DISPLAY=:99.0
