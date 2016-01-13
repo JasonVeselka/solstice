@@ -4,6 +4,8 @@
 
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
+## NOTE: updating for Babel6, please be warned this module is not yet ready.
+
 ## Installation
 
 `npm install solstice`
