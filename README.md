@@ -4,21 +4,19 @@
 
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
-## NOTE: updating for Babel6, please be warned this module is not yet ready.
-
 ## Installation
 
 `npm install solstice`
 
-## Other Commands
-- ```build``` Builds css and javascript for the project.
-- ```watch ``` Builds and watches the project for development.
-- ```lint``` Runs eslint on the src files.
-- ```clean``` Cleans up the reports.
-- ```test ``` Runs tests in live watch mode for development.
+## npm scripts
+- ```npm run build``` - Creates es5 bundle via webpack and Babel6.
+- ```npm run watch``` - Watch files continuously, rebuild incrementally.
+- ```npm run test``` - Runs es6 tests in Karma, live watch mode for devs.
+- ```npm start``` - Hot reloading via the webpack dev server.
+- ```npm run clean``` - Clean out coverage directory
 
 ## Usage
-If you're not using node for your project you'll need to make sure that you've built out the dist directory. Then you should be able to access solstice by including a script tag.
+If you're not using Node for your project you'll need to make sure that you've built out the dist directory. Then you should be able to access solstice by including a script tag.
 
 ```
 <script type="text/javascript" src="{path_to_directory}/solstice.js"></script>
@@ -38,36 +36,36 @@ If you're using node you can just include it in your project.
 var Solstice = require('solstice');
 ```
 
-Full example (found in examples/example.html):
-
+Full example (found in build/index.html):
 ```html
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-  <head>
-    <script type="text/javascript" src="../dist/solstice.js"></script>
-    <link rel="stylesheet" href="../dist/solstice.css" />
-  </head>
-  <body>
-    <div>
-      <div id="container-el"></div>
-      <button id="okay">Ok</button>
-    </div>
-    <div>
-      Date Selected:
-      <span id="aSpanOfDate"></span>
-    </div>
-    <script type="text/javascript">
-      if(Solstice){
-        var containerEl = document.getElementById('container-el'),
-          okayBtn = document.getElementById('okay'),
-          theSpan = document.getElementById('aSpanOfDate'),
-          sols = new Solstice(containerEl);
-        okayBtn.onclick = function(){
-          theSpan.innerText = sols.getDate();
-        };
-      }
-    </script>
-  </body>
+<head>
+    <meta charset="utf-8">
+    <title>solstice demo</title>
+    <link rel="stylesheet" href="solstice.min.css" />
+</head>
+<body>
+
+  <div>
+    <div id="container-el"></div>
+    <button id="okay">Ok</button>
+    <div>Date Selected: <span id="aSpanOfDate"></span></div>
+  </div>
+
+  <script src="solstice-bundle.js"></script>
+  <script type="text/javascript">
+    if (Solstice) {
+      var containerEl = document.getElementById('container-el'),
+        okayBtn = document.getElementById('okay'),
+        theSpan = document.getElementById('aSpanOfDate'),
+        sols = new Solstice(containerEl);
+      okayBtn.onclick = function(){
+        theSpan.innerText = sols.getDate();
+      };
+    }
+  </script>
+</body>
 </html>
 ```
 
