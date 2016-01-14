@@ -3,8 +3,6 @@
 *.seed
 logs
 pids
-lib
-lib-cov
 coverage
 .lock-wscript
 build/Release

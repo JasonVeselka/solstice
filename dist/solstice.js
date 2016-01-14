@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+require('core-js/shim');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Solstice = exports.Solstice = function () {
+var Solstice = function () {
   function Solstice(contEl, options) {
     _classCallCheck(this, Solstice);
 
@@ -580,3 +582,5 @@ var Solstice = exports.Solstice = function () {
 
   return Solstice;
 }();
+
+exports.default = Solstice;
