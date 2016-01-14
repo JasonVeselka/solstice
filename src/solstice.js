@@ -1,5 +1,3 @@
-import 'core-js/shim';
-
 export default class Solstice {
 
   constructor(contEl, options){
