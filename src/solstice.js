@@ -338,7 +338,6 @@ class Solstice {
 
   _createClock(){
     const frag = document.createDocumentFragment();
-
     const timewrapper = this._createElement('div', this.selector.timewrap);
 
     // separator

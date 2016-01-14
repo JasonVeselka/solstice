@@ -1,9 +1,7 @@
-// require all `test/**/index.js`
-// current directory and all subdirectories
+// require test/index.text.js`
 const testsContext = require.context('./', false, /test\.js$/);
 testsContext.keys().forEach(testsContext);
 
-// require all `src/**/index.js`
-// current directory and all subdirectories
+// require src/solstice.js`
 const componentsContext = require.context('../src/', false, /solstice\.js$/);
 componentsContext.keys().forEach(componentsContext);

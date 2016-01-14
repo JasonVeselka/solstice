@@ -5679,7 +5679,6 @@
 	    key: '_createClock',
 	    value: function _createClock() {
 	      var frag = document.createDocumentFragment();
-	
 	      var timewrapper = this._createElement('div', this.selector.timewrap);
 	
 	      // separator

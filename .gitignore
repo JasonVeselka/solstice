@@ -5,9 +5,6 @@ logs
 pids
 coverage
 .lock-wscript
-build/Release
 node_modules
 .DS_Store
-test-results.xml
-reports
 gs

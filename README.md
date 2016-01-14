@@ -4,6 +4,10 @@
 
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
+#### work in progress:
+- the example in `build/index.html` is currently supported
+- fix in progress for requiring via es5 require and es6 import
+
 ## Installation
 
 `npm install solstice`
@@ -70,8 +74,6 @@ Full example (found in build/index.html):
 ```
 
 ## Options
-
-There are options you can set
   - date: The default date that is shown in the calendar. This is optional and will default to today's date and time.
   - showYearCtrls: This boolean is to show whether or not the the year controls. Optional and defaults to false.
   - timeSeparator: This is the separation between Hours/Minutes/Seconds and is by default a colon ":".
