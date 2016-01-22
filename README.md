@@ -1,6 +1,7 @@
 # Solstice
 
 [![Build Status](https://travis-ci.org/JasonVeselka/solstice.svg?branch=master)](https://travis-ci.org/JasonVeselka/solstice)
+[![Coverage Status](https://coveralls.io/repos/JasonVeselka/solstice/badge.svg?branch=master&service=github)](https://coveralls.io/github/JasonVeselka/solstice?branch=master)
 
 Solstice is a vanilla Javascript date picker that requires minimal set up.
 
